@@ -47,16 +47,12 @@ def telco_encoded(train, validate, test):
     return encoded_dfs
 
 def prep_xy(df):
-    """
-    Use function to preprocesses train, validate, and test Telco data and returns X and y.  Ne
-
-    Parameters:
-    df: use 
-
-    Returns:
-    X (pd.DataFrame): Features.
-    y (pd.Series): Target variable.
-    """
+    
+    '''
+    
+    Use function to preprocesses train, validate, and test Telco data and returns X and y.  
+   
+    '''
     # List of columns to drop
     columns_to_drop = [
         'churn_Yes', 'customer_id', 'total_charges', 'senior_citizen', 'tenure',
@@ -77,33 +73,32 @@ def prep_xy(df):
 
     return X, y
 
-def decision_tree_model(X_train, y_train, X_validate, y_validate, max_depth_values):
+def clf_train_validate(X_train, y_train, X_validate, y_validate, max_depth_values):
     '''
+    
     Train and evaluate Decision Tree models with different max_depth values on the training and validation data to find optimal
     max depth.
 
     Parameters:
-    X_train: Features for training.
-    y_train: Target variable for training.
-    X_validate: Features for validation.
-    y_validate: Target variable for validation.
+    X: Features for training.
+    y: Target variable.
     max_depth_values (list): List of max_depth values to try.
 
     '''
     for max_depth in max_depth_values:
         # Create an instance of DecisionTreeClassifier with the current max_depth
-        dt_model = DecisionTreeClassifier(max_depth=max_depth, random_state=42)
+        clf = DecisionTreeClassifier(max_depth=max_depth, random_state=42)
 
         # Fit the model on the training data
-        dt_model.fit(X_train, y_train)
+        clf.fit(X_train, y_train)
 
         # Make predictions on the training set
-        y_pred_train = dt_model.predict(X_train)
+        y_pred_train = clf.predict(X_train)
 
         # Make predictions on the validation set
-        y_pred_validate = dt_model.predict(X_validate)
+        y_pred_validate = clf.predict(X_validate)
 
         # Print results for the current max_depth
-        print(f"\nResults for max_depth={max_depth}:\n")
+        print(f'Results for max_depth={max_depth}:\n')
         print('Classification Report (Training):\n', classification_report(y_train, y_pred_train))
         print('Classification Report (Validation):\n', classification_report(y_validate, y_pred_validate))
