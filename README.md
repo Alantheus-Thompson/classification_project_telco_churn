@@ -45,7 +45,7 @@ Find optimal depth
 
 # Duplication Instructions
 
-Gain access to Codeup MySql 
+Gain access to Codeup MySql\
 Clone this repository
 Create env with credentials
 Run this notebook
